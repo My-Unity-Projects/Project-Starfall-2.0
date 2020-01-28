@@ -20,8 +20,9 @@ public class MyEnemy : MonoBehaviour {
     private bool isMoving = false;
 
     [Header("Attack State Settings")]
+    public float timeBetweenAttacks;
     public float attackTime;
-    private float attackTimeCounter;
+    private float timeCounter;
     private Collider2D attackCollider; // Attack collider info
     public ParticleSystem attackEffect; // Attack particle system info
 
@@ -38,7 +39,7 @@ public class MyEnemy : MonoBehaviour {
 	void Start ()
     {
         attackCollider = GetComponent<BoxCollider2D>(); // Initialize attack box collider
-        attackTimeCounter = attackTime; // Initialize our counter with attackTime value
+        timeCounter = timeBetweenAttacks; // Initialize our counter with attackTime value
 
         animator = GetComponent<Animator>(); // Initialize animator component
 	}
@@ -99,18 +100,21 @@ public class MyEnemy : MonoBehaviour {
     /*ATTACK METHOD*/
     public void Ready()
     {
-        attackTimeCounter -= Time.deltaTime; // Decrease attackTimeCounter in each FPS
+        timeCounter -= Time.deltaTime; // Decrease timeCounter in each FPS
 
-        if(attackTimeCounter < 0) // When attackTimeCounter is over
+        if(timeCounter < 0) // When timeCounter is over
         {
-            attackTimeCounter = attackTime; // Re-initialize attackTime counter with attackTime value
 
             if (attackEffect.isPlaying)
             {
+                timeCounter = timeBetweenAttacks; // Re-initialize timeCounter with the timeBetweenAttacks value
+                attackCollider.enabled = false;
                 attackEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
             else
             {
+                timeCounter = attackTime; // Re-initialize timeCounter with the attackTime value
+                attackCollider.enabled = true;
                 attackEffect.Play();
             }
         }

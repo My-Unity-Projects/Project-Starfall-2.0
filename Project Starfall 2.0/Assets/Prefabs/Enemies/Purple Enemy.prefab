@@ -24166,6 +24166,7 @@ MonoBehaviour:
   deathParticles: {fileID: 8629476651193524001, guid: a72879e58862c814f9d4174cfa196e47,
     type: 3}
   movingSpeed: 10
+  timeBetweenAttacks: 2
   attackTime: 2
   attackEffect: {fileID: 83450151}
   state: 0

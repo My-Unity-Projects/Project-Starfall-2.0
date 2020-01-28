@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour {
 
         if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && !ps.isShooting)
         {
+            if(!runParticles || !ani) { return; }
+
             runParticles.Play();         
 
             // Left
